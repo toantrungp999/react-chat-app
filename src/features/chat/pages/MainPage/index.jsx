@@ -1,4 +1,4 @@
-import { Container, Grid } from "@mui/material";
+import { Grid } from "@mui/material";
 import Header from "features/chat/components/Header";
 import Sidebar from "features/chat/components/Sidebar";
 import React from "react";
