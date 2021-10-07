@@ -9,8 +9,13 @@ const chatSlice = createSlice({
   name: "chat",
   initialState,
   reducers: {
-    getRoom: (state, action) => {
-      state.status = "fetching";
+    initialRoom: (state, action) => {
+      state.firstFetching = true;
+      state.rooms = action.payload;
     },
+    addRoom: (state, action) => {},
   },
 });
+
+export const { initialRoom, addRoom } = chatSlice.actions;
+export default chatSlice.reducer;

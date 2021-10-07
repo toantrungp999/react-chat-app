@@ -1,31 +1,38 @@
 import { Avatar, Button } from "@mui/material";
 import PropTypes from "prop-types";
-import React, { useState } from "react";
-import RoomModal from "../RoomModal";
+import React, { useMemo } from "react";
+import { useSelector } from "react-redux";
+import { generateRoomList } from "utils/common";
+import RoomList from "../RoomList";
 import "./Sidebar.scss";
 
-function Sidebar({ avatar, name, onShow }) {
+function Sidebar({ avatar, name, onShow, rooms, onLogout }) {
+  const auth = useSelector((state) => state.auth);
+  const { myRooms, otherRooms } = useMemo(() => {
+    return generateRoomList(rooms, auth.uid);
+  }, [rooms]);
+
   return (
     <>
       <div className="sidebar">
         <div className="sidebar__header">
           <Avatar src={avatar} xs={{ width: 25, height: 25 }} />
           <span className="sidebar__header__name">{name}</span>
-          <Button variant="outlined">Logout</Button>
+          <Button variant="outlined" onClick={onLogout}>
+            Logout
+          </Button>
         </div>
         <div className="sidebar__room">
-          <h3 className="sidebar__room__name">List room</h3>
-          <ul className="sidebar__room__list">
-            <li className="sidebar__room__item">
-              <Button variant="text">123</Button>
-            </li>
-            <li className="sidebar__room__item">
-              <Button variant="text">123</Button>
-            </li>
-            <li className="sidebar__room__item">
-              <Button variant="text">123</Button>
-            </li>
-          </ul>
+          {myRooms.length ? (
+            <RoomList rooms={myRooms} name="My rooms" />
+          ) : (
+            <></>
+          )}
+          {otherRooms.length ? (
+            <RoomList rooms={otherRooms} name="Other rooms" />
+          ) : (
+            <></>
+          )}
         </div>
         <Button
           variant="contained"

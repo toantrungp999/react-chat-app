@@ -38,6 +38,20 @@
       margin: 0;
       padding: 0;
     }
+
+    &__btn {
+      width: 100%;
+      display: block;
+      cursor: pointer;
+      padding: 10px;
+      border-radius: 5px;
+      transition: all linear 0.25s;
+
+      &:hover {
+        background: rgba(0, 0, 0, 0.5);
+        color: #fff;
+      }
+    }
   }
 
   &__button {

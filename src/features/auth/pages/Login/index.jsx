@@ -6,7 +6,6 @@ import { Grid } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "features/auth/authSlice";
 import { useHistory } from "react-router";
-import { ggLogin, auth as firebaseAuth } from "utils/firebaseConfig";
 
 function Login() {
   const dispatch = useDispatch();
@@ -14,16 +13,11 @@ function Login() {
   const history = useHistory();
 
   useEffect(() => {
-    if (auth.token) history.push("/");
+    if (Object.keys(auth).length) history.push("/");
   }, [auth, history]);
 
   const handleGGLogin = async () => {
-    try {
-      if (auth.token) firebaseAuth.signOut();
-
-      const data = await ggLogin();
-      dispatch(login(data));
-    } catch (error) {}
+    dispatch(login());
   };
 
   return (
