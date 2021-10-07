@@ -1,11 +1,11 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
 import {
   getAuth,
   GoogleAuthProvider,
-  signInWithPopup,
   onAuthStateChanged,
+  signInWithPopup,
 } from "firebase/auth";
+import { getDocs, getFirestore, collection } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAkFS7fGL5HVkhHlDbM3yX_jNVfDZYUo20",
@@ -19,6 +19,8 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth();
+const db = getFirestore(app);
+// const db = getDatabase(app);
 
 const ggProvider = new GoogleAuthProvider();
 
@@ -32,6 +34,12 @@ const ggLogin = async () => {
   return { token, displayName, email, photoURL, uid };
 };
 
-const db = getFirestore(app);
+// get list user
+async function getCollectionData(collectionName) {
+  const dataCollection = collection(db, collectionName);
+  const dataSnapshot = await getDocs(dataCollection);
 
-export { ggLogin, auth, onAuthStateChanged, db };
+  return dataSnapshot.docs.map((doc) => doc.data());
+}
+
+export { ggLogin, auth, onAuthStateChanged, db, getCollectionData };
