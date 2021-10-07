@@ -1,10 +1,60 @@
 .sidebar {
-  padding: 10px 20px;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+
+  background: pink;
+  min-height: 100vh;
 
   border-right: 1px solid #ccc;
 
   &__header {
     display: flex;
     align-items: center;
+    padding: 10px;
+
+    &__name {
+      flex: 1;
+      padding: 0 12px;
+    }
+  }
+
+  &__room {
+    border-top: 1px solid #ccc;
+    flex: 1;
+
+    &__name {
+      text-align: center;
+      padding: 5px 0;
+    }
+
+    &__list {
+      margin: 0;
+      padding: 0;
+    }
+
+    &__item {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    &__btn {
+      width: 100%;
+      display: block;
+      cursor: pointer;
+      padding: 10px;
+      border-radius: 5px;
+      transition: all linear 0.25s;
+
+      &:hover {
+        background: rgba(0, 0, 0, 0.5);
+        color: #fff;
+      }
+    }
+  }
+
+  &__button {
+    margin: 10px 0;
   }
 }
